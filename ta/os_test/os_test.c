@@ -978,6 +978,8 @@ static void undef_instr(void)
 	__asm__(".word 0x0");
 #elif defined(ARM32)
 	__asm__(".word 0xe7ffffff");
+#elif defined(X86_64)
+    __asm__(".word 0x0B0F");
 #else
 #error "Unsupported architecture"
 #endif

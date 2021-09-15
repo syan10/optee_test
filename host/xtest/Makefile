@@ -45,11 +45,15 @@ LDFLAGS += -lcrypto
 CFLAGS += -I$(OPTEE_OPENSSL_EXPORT)
 else #OPTEE_OPENSSL_EXPORT
 CFLAGS += -I../openssl/include
+ifeq ($(ARCH),x86_64)
+LDFLAGS += ../openssl/lib/x86_64/libcrypto.a -ldl
+else
 ifeq ($(call cc-bits, $(call cc-arch, $(CC))),32)
 LDFLAGS += ../openssl/lib/arm/libcrypto.a -ldl
 else
 LDFLAGS += ../openssl/lib/aarch64/libcrypto.a -ldl
 endif
+endif #x86_64
 endif #OPTEE_OPENSSL_EXPORT
 endif #require OpenSSL
 
