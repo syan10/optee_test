@@ -840,10 +840,7 @@ static void xtest_tee_test_1009(ADBG_Case_t *c)
 {
 	xtest_tee_test_1009_subcase(c, "TEE Wait 0.1s", 100, false);
 	xtest_tee_test_1009_subcase(c, "TEE Wait 0.5s", 500, false);
-    /* TODO: will enable it for OP-TEE x86_64 later */
-#if 0
 	xtest_tee_test_1009_subcase(c, "TEE Wait 2s cancel", 2000, true);
-#endif
 	xtest_tee_test_1009_subcase(c, "TEE Wait 2s", 2000, false);
 }
 ADBG_CASE_DEFINE(regression, 1009, xtest_tee_test_1009, "TEE Wait");
@@ -1694,7 +1691,7 @@ bail0:
 	TEEC_CloseSession(&cs[0]);
 }
 
-static void __unused test_panic_ta_to_ta(ADBG_Case_t *c, const TEEC_UUID *uuid1,
+static void test_panic_ta_to_ta(ADBG_Case_t *c, const TEEC_UUID *uuid1,
 				const TEEC_UUID *uuid2)
 {
 	uint32_t ret_orig = 0;
@@ -1787,8 +1784,6 @@ static void xtest_tee_test_1021(ADBG_Case_t *c)
 	test_panic_ca_to_ta(c, &sims_test_ta_uuid, false);
 	Do_ADBG_EndSubCase(c, "Single Instance Multi Sessions");
 
-    /* TODO:Will enable it for OP-TEE x86_64 later */
-#if 0
 	Do_ADBG_BeginSubCase(c, "Single Instance Multi Sessions Keep Alive");
 	test_panic_ca_to_ta(c, &sims_keepalive_test_ta_uuid, false);
 	Do_ADBG_EndSubCase(c, "Single Instance Multi Sessions Keep Alive");
@@ -1797,7 +1792,6 @@ static void xtest_tee_test_1021(ADBG_Case_t *c)
 	test_panic_ta_to_ta(c, &sims_test_ta_uuid,
 			    &sims_keepalive_test_ta_uuid);
 	Do_ADBG_EndSubCase(c, "Multi Sessions TA to TA");
-#endif
 }
 ADBG_CASE_DEFINE(regression, 1021, xtest_tee_test_1021,
 		 "Test panic context release");

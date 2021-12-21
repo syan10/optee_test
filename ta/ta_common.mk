@@ -3,4 +3,6 @@
 include $(TA_DEV_KIT_DIR)/mk/ta_dev_kit.mk
 
 # TODO: Enable stack protection when OPTEE x86_64 supports it
+ifeq ($(CFG_X86_64_ta_x86_64),y)
 CFLAGS += -fno-stack-protector
+endif
