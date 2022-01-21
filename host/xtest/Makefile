@@ -44,10 +44,11 @@ ifneq ($(OPTEE_OPENSSL_EXPORT),)
 LDFLAGS += -lcrypto
 CFLAGS += -I$(OPTEE_OPENSSL_EXPORT)
 else #OPTEE_OPENSSL_EXPORT
-CFLAGS += -I../openssl/include
 ifeq ($(ARCH),x86_64)
-LDFLAGS += ../openssl/lib/x86_64/libcrypto.a -ldl
+CFLAGS += -I../openssl_1.1.1m/include
+LDFLAGS += ../openssl_1.1.1m/lib/x86_64/libcrypto.a -ldl
 else
+CFLAGS += -I../openssl/include
 ifeq ($(call cc-bits, $(call cc-arch, $(CC))),32)
 LDFLAGS += ../openssl/lib/arm/libcrypto.a -ldl
 else
