@@ -248,6 +248,7 @@ static void xtest_tee_test_1001(ADBG_Case_t *c)
 		&session, PTA_INVOKE_TESTS_CMD_SELF_TESTS, NULL, &ret_orig));
 	TEEC_CloseSession(&session);
 }
+
 ADBG_CASE_DEFINE(regression, 1001, xtest_tee_test_1001, "Core self tests");
 
 static void xtest_tee_test_1002(ADBG_Case_t *c)
@@ -2350,6 +2351,7 @@ static void xtest_tee_test_1032(ADBG_Case_t *c)
 ADBG_CASE_DEFINE(regression, 1032, xtest_tee_test_1032,
 		"Register read-only shared memory");
 
+
 static void xtest_tee_test_1033(ADBG_Case_t *c)
 {
 	TEEC_Session session = { };
@@ -2473,3 +2475,28 @@ static void xtest_tee_test_1033(ADBG_Case_t *c)
 }
 ADBG_CASE_DEFINE(regression, 1033, xtest_tee_test_1033,
 		 "Test the supplicant plugin framework");
+
+#define TA_KEYMASTER_UUID { 0xdba51a17, 0x0563, 0x11e7, \
+                { 0x93, 0xb1, 0x6f, 0xa7, 0xb0, 0x07, 0x1a, 0x51} }
+
+const TEEC_UUID km_ta_uuid = TA_KEYMASTER_UUID;
+
+static void xtest_tee_test_1034(ADBG_Case_t *c)
+{
+	TEEC_Session session = { 0 };
+	uint32_t ret_orig = 0;
+
+    EMSG("YYY-- test 1034");
+
+	if (!ADBG_EXPECT_TEEC_SUCCESS(c,
+			xtest_teec_open_session(&session, &km_ta_uuid,
+						NULL, &ret_orig)))
+		return;
+
+	Do_ADBG_BeginSubCase(c, "km subcase 11111");
+	Do_ADBG_EndSubCase(c, "km subcase 11111");
+
+	TEEC_CloseSession(&session);
+}
+ADBG_CASE_DEFINE(regression, 1034, xtest_tee_test_1034,
+		 "Test avb ta");
